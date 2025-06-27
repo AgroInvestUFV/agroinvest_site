@@ -1,0 +1,63 @@
+
+[
+    {
+        "name": "Soja (Chicago - Bushel)",
+        "value": "$11.65",
+        "change": "-0.08",
+        "direction": "down"
+    },
+    {
+        "name": "Milho (Chicago - Bushel)",
+        "value": "$4.52",
+        "change": "+0.03",
+        "direction": "up"
+    },
+    {
+        "name": "Café Arábica (NY - Libra)",
+        "value": "$2.20",
+        "change": "+0.04",
+        "direction": "up"
+    },
+    {
+        "name": "Algodão (ICE - Libra)",
+        "value": "$0.72",
+        "change": "-0.01",
+        "direction": "down"
+    },
+    {
+        "name": "Arroz (CEPEA - Saca)",
+        "value": "R$90.50",
+        "change": "+0.70",
+        "direction": "up"
+    },
+    {
+        "name": "Boi Gordo (CEPEA - Arroba)",
+        "value": "R$298.00",
+        "change": "+1.50",
+        "direction": "up"
+    },
+    {
+        "name": "Açúcar (NY - Libra)",
+        "value": "$0.198",
+        "change": "+0.001",
+        "direction": "up"
+    },
+    {
+        "name": "Petróleo Brent (Barril)",
+        "value": "$85.30",
+        "change": "-0.50",
+        "direction": "down"
+    },
+    {
+        "name": "Ureia (Granel - Porto BR - Tonelada)",
+        "value": "$420.00",
+        "change": "-5.00",
+        "direction": "down"
+    },
+    {
+        "name": "Dólar Comercial (B3 - PTAX)",
+        "value": "R$5.45",
+        "change": "+0.02",
+        "direction": "up"
+    }
+]

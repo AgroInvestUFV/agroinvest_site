@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agroinvest - UFV</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <img src="logo1.png" alt="Agroinvest Logo Principal" class="main-logo">
+            <h1>Agroinvest - Liga de Estudos em Mercados Agrícolas</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#home">Início</a></li>
+                <li><a href="#conteudo">Conteúdo</a></li>
+                <li><a href="#precos">Preços</a></li>
+                <li><a href="#sobre">Sobre Nós</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="home" class="active-section">
+            <h2>Bem-vindo à Agroinvest!</h2>
+            <p>Seu portal de conhecimento sobre mercados agrícolas na UFV.</p>
+            <p>Aqui você encontrará informações, análises e dados atualizados para entender melhor o agronegócio.</p>
+        </section>
+
+        <section id="conteudo">
+            <h2>Nosso Conteúdo</h2>
+            <div class="content-tabs">
+                <button class="tab-button active" onclick="openTab(event, 'Introducao')">Introdução aos Mercados</button>
+                <button class="tab-button" onclick="openTab(event, 'Commodities')">Commodities Agrícolas</button>
+                <button class="tab-button" onclick="openTab(event, 'Analise')">Análise de Mercado</button>
+            </div>
+
+            <div id="Introducao" class="tab-content active">
+                <h3>Introdução aos Mercados Agrícolas</h3>
+                <p>Aqui você aprenderá os conceitos básicos do funcionamento dos mercados agrícolas, desde a oferta e demanda até os principais agentes envolvidos.</p>
+                <p>O agronegócio é um setor vital para a economia brasileira e global. Entender suas dinâmicas é fundamental para profissionais e entusiastas.</p>
+                <p>Abordaremos temas como: formação de preços, influência climática, políticas governamentais e tendências de consumo.</p>
+            </div>
+
+            <div id="Commodities" class="tab-content">
+                <h3>Principais Commodities Agrícolas</h3>
+                <p>Explore as características e a importância das principais commodities como soja, milho, café, açúcar, algodão e trigo.</p>
+                <p>Cada commodity tem suas particularidades de mercado, desde a produção até a comercialização e precificação em bolsas de valores.</p>
+                <p>Analisaremos a relevância de cada uma para a balança comercial e para a segurança alimentar.</p>
+            </div>
+
+            <div id="Analise" class="tab-content">
+                <h3>Análise de Mercado e Estratégias</h3>
+                <p>Entenda como analisar o mercado, identificar tendências e desenvolver estratégias de investimento ou gestão de risco no agronegócio.</p>
+                <p>Discutiremos ferramentas de análise técnica e fundamentalista, além de apresentar cases de sucesso e desafios enfrentados pelos produtores e investidores.</p>
+                <p>Conheça os contratos futuros, opções e outras ferramentas financeiras usadas para mitigar riscos no setor.</p>
+            </div>
+        </section>
+
+        <section id="precos">
+            <h2>Preços de Mercado</h2>
+            <p>Aqui você encontrará os preços atualizados das principais commodities e índices do agronegócio.</p>
+            <div id="prices-container">
+                <p>Carregando dados de preços...</p>
+                </div>
+            <p class="last-updated">Última atualização: <span id="last-updated-time"></span></p>
+        </section>
+
+        <section id="sobre">
+            <h2>Sobre Nós</h2>
+            <p>A Agroinvest é uma liga de estudos da Universidade Federal de Viçosa (UFV) dedicada a aprofundar o conhecimento e promover discussões sobre os mercados agrícolas.</p>
+            <p>Fundada por estudantes apaixonados pelo agronegócio, nossa missão é disseminar informações precisas e relevantes, capacitando a comunidade acadêmica e externa nas dinâmicas que movem este setor vital.</p>
+            <p>Realizamos eventos, palestras, workshops e publicações para enriquecer o aprendizado e conectar mentes interessadas no futuro do agronegócio.</p>
+        </section>
+
+        <section id="contato">
+            <h2>Contato</h2>
+            <p>Tem dúvidas, sugestões ou interesse em fazer parte da Agroinvest? Entre em contato conosco!</p>
+            <p>Email: <a href="mailto:contato.agroinvest@ufv.br">contato.agroinvest@ufv.br</a></p>
+            <p>Siga-nos nas redes sociais para ficar por dentro de nossas atividades:</p>
+            <ul>
+                <li>Instagram: <a href="https://instagram.com/agroinvestufv" target="_blank">@agroinvestufv</a> (Exemplo, crie o seu!)</li>
+                <li>LinkedIn: <a href="https://linkedin.com/company/agroinvestufv" target="_blank">Agroinvest UFV</a> (Exemplo, crie o seu!)</li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Agroinvest - UFV. Todos os direitos reservados.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

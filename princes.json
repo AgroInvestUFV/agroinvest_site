@@ -1,0 +1,51 @@
+
+[
+    {
+        "name": "Soja (Chicago - Bushel)",
+        "value": "$12.55",
+        "change": "+0.05",
+        "direction": "up"
+    },
+    {
+        "name": "Milho (Chicago - Bushel)",
+        "value": "$4.28",
+        "change": "-0.02",
+        "direction": "down"
+    },
+    {
+        "name": "Café (NY - Libra)",
+        "value": "$2.12",
+        "change": "+0.01",
+        "direction": "up"
+    },
+    {
+        "name": "Açúcar (NY - Libra)",
+        "value": "$0.188",
+        "change": "-0.002",
+        "direction": "down"
+    },
+    {
+        "name": "Boi Gordo (CEPEA - Arroba)",
+        "value": "R$282.00",
+        "change": "+1.00",
+        "direction": "up"
+    },
+    {
+        "name": "Dólar Comercial (PTAX)",
+        "value": "R$5.18",
+        "change": "+0.03",
+        "direction": "up"
+    },
+    {
+        "name": "Trigo (CBOT - Bushel)",
+        "value": "$6.10",
+        "change": "-0.01",
+        "direction": "down"
+    },
+    {
+        "name": "Algodão (ICE - Libra)",
+        "value": "$0.80",
+        "change": "+0.005",
+        "direction": "up"
+    }
+]
