@@ -483,4 +483,38 @@ footer {
     .team-member {
         width: 90%; /* Ocupa quase a largura total em telas muito pequenas */
     }
+
+
+
+
+    /* --- CORREÇÃO DA TABELA DO CEPEA PARA TELAS PEQUENAS --- */
+
+    /* Aplicamos a rolagem horizontal no container que envolve o script do CEPEA */
+    #prices-container {
+        /* (Seu código existente da #prices-container já está aqui, esta é só uma referência) */
+        /* ... */
+    }
+
+    @media (max-width: 768px) {
+        /* Esta regra será aplicada em tablets e celulares */
+        #prices-container {
+            /* Adiciona uma barra de rolagem horizontal se o conteúdo for maior que a tela */
+            overflow-x: auto; 
+            /* Para garantir que a rolagem funcione, definimos o máximo de largura para a tela */
+            max-width: 100%; 
+            /* Zera o padding lateral para maximizar o espaço da tabela */
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        /* Regras adicionais se a tabela ainda estiver muito grande no eixo Y */
+        .cepea-widget-container table {
+            /* Garante que a tabela não tente ser mais larga que o container */
+            width: max-content !important; 
+        }
+    }
+
+
+
+
 }
