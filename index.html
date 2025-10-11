@@ -5,6 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Agroinvest - UFV</title>
     <link rel="stylesheet" href="style.css">
+
+
+
+    
 </head>
 <body>
     <header>
@@ -15,6 +19,7 @@
         <nav>
             <ul>
                 <li><a href="#home">Início</a></li>
+                <li><a href="#noticias">Notícias</a></li>
                 <li><a href="#conteudo">Conteúdo</a></li>
                 <li><a href="#precos">Preços</a></li>
                 <li><a href="#equipe">Nossa Equipe</a></li> <li><a href="#sobre">Sobre Nós</a></li>
@@ -23,6 +28,9 @@
         </nav>
     </header>
 
+
+
+    
     <main>
         <section id="home" class="active-section">
             <h2>Bem-vindo à AgroInvest!</h2>
@@ -30,6 +38,54 @@
             <p>Aqui você encontrará informações, análises e dados atualizados para entender melhor o agronegócio.</p>
         </section>
 
+
+
+
+
+
+
+        
+ <!-- SEÇÃO DE NOTÍCIAS ------------------------------ -------------------------->
+        <section id="noticias">
+
+            <div class="container-noticias"> 
+                <h1>Notícias do Dia</h1>
+
+                <ul class="lista-noticias">
+
+                    <li class="noticia">
+                        <div class="data">11/10/2025</div>
+                        <div class="conteudo">
+                            <img src="noticia2025.10.11.png" alt="Notícia sobre o Agro"> 
+                            <div class="texto-noticia">
+                                <h2>Título da Notícia Mais Nova</h2>
+                                <p>Este é o texto da notícia de hoje. Ele sempre ficará no topo da lista, e as outras notícias descerão quando você postar uma nova aqui.</p>
+                                </div>
+                        </div>
+                    </li>
+
+                    <li class="noticia">
+                        <div class="data">10/10/2025</div>
+                        <div class="conteudo">
+                            <img src="logo1.png" alt="Notícia Antiga">
+                            <div class="texto-noticia">
+                                <h2>Título da Notícia de Ontem</h2>
+                                <p>Esta notícia foi postada ontem. Ao adicionar uma nova, ela desce na lista.</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    </ul>
+            </div>
+
+            </section>
+
+
+
+
+        
+        
+<!-- SEÇÃO DE CONTEÚDO (ADICIONAR MAIS SEÇÕES SE NECESSÁRIO) -------------------------->
         <section id="conteudo">
             <h2>Nosso Conteúdo</h2>
             <div class="content-tabs">
@@ -38,6 +94,7 @@
                 <button class="tab-button" onclick="openTab(event, 'Analise')">Análise de Mercado</button>
             </div>
 
+            <!-- ABA DE Introdução aos Mercados Agrícolas -----------------------------------------------------------> 
             <div id="Introducao" class="tab-content active">
                 <h3>Introdução aos Mercados Agrícolas</h3>
                 <p>Aqui você aprenderá os conceitos básicos do funcionamento dos mercados agrícolas, desde a oferta e demanda até os principais agentes envolvidos.</p>
@@ -45,6 +102,8 @@
                 <p>Abordaremos temas como: formação de preços, influência climática, políticas governamentais e tendências de consumo.</p>
             </div>
 
+
+            <!-- ABA DE COMODITTIES ----------------------------------------------------------->            
             <div id="Commodities" class="tab-content">
                 <h3>Principais Commodities Agrícolas</h3>
                 <p>Explore as características e a importância das principais commodities como soja, milho, café, açúcar, algodão e trigo.</p>
@@ -52,6 +111,10 @@
                 <p>Analisaremos a relevância de cada uma para a balança comercial e para a segurança alimentar.</p>
             </div>
 
+
+
+            
+            <!-- ABA DE Análise de Mercado e Estratégias ---------------------------------------> 
             <div id="Analise" class="tab-content">
                 <h3>Análise de Mercado e Estratégias</h3>
                 <p>Entenda como analisar o mercado, identificar tendências e desenvolver estratégias de investimento ou gestão de risco no agronegócio.</p>
@@ -60,15 +123,36 @@
             </div>
         </section>
 
+
+
+
+
+        
+<!-- SEÇÃO DE PREÇOS DE MERCADO ------------------------------------------------------->  
         <section id="precos">
             <h2>Preços de Mercado</h2>
             <p>Aqui você encontrará os preços atualizados das principais commodities e índices do agronegócio.</p>
-            <div id="prices-container">
+
+    <!-- PREÇOS ATUALIZADOS PELO ARQUIVO -->
+            <!-- <div id="prices-container">
                 <p>Carregando dados de preços...</p>
                 </div>
-            <p class="last-updated">Última atualização: <span id="last-updated-time"></span></p>
+            <p class="last-updated">Última atualização: <span id="last-updated-time"></span>           </p> -->
+
+    <!-- PREÇOS DO CEPEA -->
+            <div id="prices-container" class="cepea-widget-container">
+                    <script type="text/javascript" src="https://www.cepea.org.br/br/widgetproduto.js.php?fonte=arial&tamanho=10&largura=400px&corfundo=dbd6b2&cortexto=333333&corlinha=ede7bf&id_indicador%5B%5D=54&id_indicador%5B%5D=91&id_indicador%5B%5D=308&id_indicador%5B%5D=2&id_indicador%5B%5D=3&id_indicador%5B%5D=23&id_indicador%5B%5D=24&id_indicador%5B%5D=162&id_indicador%5B%5D=77&id_indicador%5B%5D=92&id_indicador%5B%5D=179"></script>
+                    </div>
+
+                <p class="last-updated">Dados fornecidos por: <span id="last-updated-time">CEPEA/ESALQ</span></p>
+
+
+            
         </section>
 
+
+        
+<!-- SEÇÃO SOBRE NÓS ------------------------------------------------------------------->
         <section id="sobre">
             <h2>Sobre Nós</h2>
             <p>A Agroinvest é uma liga acadêmica da Universidade Federal de Viçosa (UFV) dedicada a aprofundar o conhecimento e promover discussões sobre os mercados agrícolas.</p>
@@ -80,9 +164,7 @@
 
 
 
-        
-        
-<!-- Seção de membros da Liga -->
+<!-- Seção de membros da Liga ---------------------------------------------------------->
         
         <section id="equipe">
             <h2>Conheça Nossa Equipe</h2>
@@ -91,94 +173,93 @@
                 <div class="team-member">
                     <img src="foto_alexandre.jpg" alt="Foto de Alexandre" class="member-photo">
                     <h3>Alexandre Oliveira</h3>
-                    <p class="role">CEO & Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities e modelagem de risco. Possui mais de 10 anos de experiência em consultoria para grandes produtores e fundos de investimento. Formado em Agronomia pela UFV.</p>
+                    <p class="role">Diretor de Planejamento e Projetos</p>
+                    <p class="bio"> ####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_arthur.jpg" alt="Foto de Arthur" class="member-photo">
                     <h3>Arthur Araújo</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
                 
                 <div class="team-member">
                     <img src="foto_bianca.jpg" alt="Foto de Bianca" class="member-photo">
                     <h3>Bianca Chaves</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Diretora de Marketing</p>
+                    <p class="bio">####################. Graduanda em Agronegócio pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_enrico.jpg" alt="Foto de Enrico" class="member-photo">
                     <h3>Enrico Cavichioli</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de Gestão de Pessoas</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_guilherme.jpg" alt="Foto de Guilherme" class="member-photo">
                     <h3>Guilherme Alves</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronegócio pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_joao.jpg" alt="Foto de João" class="member-photo">
                     <h3>João Emílio</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
-
 
                 
                 <div class="team-member">
                     <img src="foto_johan.jpg" alt="Foto de Johan" class="member-photo">
                     <h3>Johan Potrich</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Presidente</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_leonardo.jpg" alt="Foto de Leonardo" class="member-photo">
                     <h3>Leonardo Moura</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_Luan.jpg" alt="Foto de Luan" class="member-photo">
                     <h3>Luan Oliveira</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
                 
                 <div class="team-member">
                     <img src="foto_luiz.jpg" alt="Foto de Luiz" class="member-photo">
                     <h3>Luiz Bergamaschi</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Diretor de Gestão de Pessoas</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_maria.jpg" alt="Foto de Maria" class="member-photo">
                     <h3>Maria Fernanda</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesora de Planejamento e Projetos</p>
+                    <p class="bio">####################. Graduando em Economia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_nathan.jpg" alt="Foto de Nathan" class="member-photo">
                     <h3>Nathan Scopel</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">Especialista em mercados de commodities, com foco em comercialização internacional. Possui mais de 5 anos de experiência em consultoria para tradings. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesor de ###</p>
+                    <p class="bio">####################. Graduando em Agronomia pela UFV.</p>
                 </div>
 
                 <div class="team-member">
                     <img src="foto_raianne.jpg" alt="Foto de Raianne" class="member-photo">
                     <h3>Raianne Silva</h3>
-                    <p class="role">Head e Analista de Agronegócios</p>
-                    <p class="bio">########################. Formada em Agronegócio pela UFV.</p>
+                    <p class="role">Assesora de ###</p>
+                    <p class="bio">####################. Graduanda em Agronegócio pela UFV.</p>
                 </div>
                 
                 </div>
@@ -187,7 +268,7 @@
 
         
         
-<!-- Seção de contato da Liga -->
+<!-- Seção de contato da Liga ----------------------------------------------------------------------------------------->
         <section id="contato">
             <h2>Contato</h2>
             <p>Tem dúvidas, sugestões ou interesse em fazer parte da Agroinvest? Entre em contato conosco!</p>

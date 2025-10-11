@@ -39,9 +39,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Carregar preços ao iniciar
-    fetchPrices();
+ //   fetchPrices();
     // Atualizar preços a cada 10 minutos (600000 ms) - Você pode ajustar a frequência
-    setInterval(fetchPrices, 600000); 
+ //   setInterval(fetchPrices, 600000); 
 });
 
 // Funcionalidade para as abas de conteúdo dentro da seção "Nosso Conteúdo"
@@ -74,42 +74,42 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- Funcionalidade para a aba de preços ---
-async function fetchPrices() {
-    const pricesContainer = document.getElementById('prices-container');
-    const lastUpdatedTime = document.getElementById('last-updated-time');
-    pricesContainer.innerHTML = '<p>Carregando dados de preços...</p>'; // Mensagem de carregamento
+// async function fetchPrices() {
+//    const pricesContainer = document.getElementById('prices-container');
+//    const lastUpdatedTime = document.getElementById('last-updated-time');
+//    pricesContainer.innerHTML = '<p>Carregando dados de preços...</p>'; // Mensagem de carregamento
 
-    try {
+//    try {
         // Faz a requisição para o seu arquivo prices.json
-        const response = await fetch('/prices.json');
+//        const response = await fetch('/prices.json');
 
-        // Verifica se a requisição foi bem-sucedida (status 200 OK)
-        if (!response.ok) {
-            throw new Error(`Erro HTTP! Status: ${response.status}`);
-        }
+ //       // Verifica se a requisição foi bem-sucedida (status 200 OK)
+//        if (!response.ok) {
+//            throw new Error(`Erro HTTP! Status: ${response.status}`);
+//        }
 
-        const pricesToDisplay = await response.json(); // Converte a resposta para JSON
+//        const pricesToDisplay = await response.json(); // Converte a resposta para JSON
 
-        let htmlContent = '';
-        pricesToDisplay.forEach(item => {
+//        let htmlContent = '';
+//        pricesToDisplay.forEach(item => {
             // Usa o campo 'direction' para adicionar a classe CSS correspondente ('up', 'down', 'unchanged')
-            const changeClass = item.direction === 'up' ? 'up' : (item.direction === 'down' ? 'down' : 'unchanged');
-            htmlContent += `
-                <div class="price-item">
-                    <strong>${item.name}:</strong> 
-                    <span class="price-value-change">
-                        ${item.value} 
-                        (<span class="change ${changeClass}">${item.change}</span>)
-                    </span>
-                </div>
-            `;
-        });
-        pricesContainer.innerHTML = htmlContent; // Insere o HTML gerado no contêiner de preços
-        lastUpdatedTime.textContent = new Date().toLocaleString('pt-BR'); // Atualiza o horário da última atualização
+//            const changeClass = item.direction === 'up' ? 'up' : (item.direction === 'down' ? 'down' : 'unchanged');
+//            htmlContent += `
+//                <div class="price-item">
+ //                   <strong>${item.name}:</strong> 
+//                    <span class="price-value-change">
+ //                       ${item.value} 
+ //                       (<span class="change ${changeClass}">${item.change}</span>)
+ //                   </span>
+ //               </div>
+ //           `;
+//        });
+//        pricesContainer.innerHTML = htmlContent; // Insere o HTML gerado no contêiner de preços
+//        lastUpdatedTime.textContent = new Date().toLocaleString('pt-BR'); // Atualiza o horário da última atualização
 
-    } catch (error) {
-        console.error("Erro ao buscar preços:", error);
-        pricesContainer.innerHTML = '<p>Não foi possível carregar os preços no momento. Verifique o arquivo prices.json.</p>';
-        lastUpdatedTime.textContent = 'Erro na atualização';
-    }
-}
+//    } catch (error) {
+//        console.error("Erro ao buscar preços:", error);
+//        pricesContainer.innerHTML = '<p>Não foi possível carregar os preços no momento. Verifique o arquivo prices.json.</p>';
+//        lastUpdatedTime.textContent = 'Erro na atualização';
+//    }
+//}
