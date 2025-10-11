@@ -498,13 +498,17 @@ footer {
     @media (max-width: 768px) {
         /* Esta regra será aplicada em tablets e celulares */
         #prices-container {
-            /* Adiciona uma barra de rolagem horizontal se o conteúdo for maior que a tela */
-            overflow-x: auto; 
-            /* Para garantir que a rolagem funcione, definimos o máximo de largura para a tela */
-            max-width: 100%; 
-            /* Zera o padding lateral para maximizar o espaço da tabela */
-            padding-left: 0;
-            padding-right: 0;
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #c8e6c9;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            /* ⭐ NOVO: Centraliza o conteúdo dentro do container */
+            align-items: center; 
         }
 
         /* Regras adicionais se a tabela ainda estiver muito grande no eixo Y */
