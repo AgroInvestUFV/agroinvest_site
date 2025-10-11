@@ -318,4 +318,67 @@ footer {
   .price-item strong, .price-value-change {
       font-size: 1em;
   }
+
+
+
+  /* --- ESTILOS DA SEÇÃO NOSSA EQUIPE --- */
+
+  #equipe {
+      text-align: center; /* Centraliza o título e o container */
+  }
+
+  .team-container {
+      display: flex;
+      flex-wrap: wrap; /* Permite que os cartões quebrem para a linha de baixo em telas menores */
+      justify-content: center; /* Centraliza os cartões na tela */
+      gap: 30px; /* Espaço entre os cartões */
+      margin-top: 30px;
+  }
+
+  .team-member {
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      width: 250px; /* ALTERADO DE 280px PARA 250px (Largura um pouco menor) */
+      text-align: center;
+      transition: transform 0.3s ease;
+  }
+
+  .team-member:hover {
+      transform: translateY(-5px); /* Efeito sutil ao passar o mouse */
+  }
+
+  /* Estilo para a foto circular */
+  .member-photo {
+      width: 100px; /* Tamanho da foto */
+      height: 100px; /* Tamanho da foto */
+      border-radius: 50%; /* Torna a imagem um círculo */
+      object-fit: cover; /* Garante que a imagem preencha o círculo sem distorcer */
+      border: 4px solid #4CAF50; /* Borda verde (cor do agronegócio) */
+      margin-bottom: 15px;
+  }
+
+  .team-member h3 {
+      margin: 10px 0 5px 0;
+      color: #007bff; /* Cor para o nome */
+  }
+
+  .team-member .role {
+      color: #666;
+      font-style: italic;
+      margin-bottom: 15px;
+  }
+
+  .team-member .bio {
+      text-align: justify;
+      font-size: 0.9em;
+      color: #555;
+  }
+
+
+
+  
+
+  
 }
