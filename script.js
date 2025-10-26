@@ -1,3 +1,7 @@
+// VARIÁVEL GLOBAL PARA GUARDAR A INSTÂNCIA DO MAPA
+window.mapInstance = null;
+let mapInitialized = false; // Flag para garantir que inicializa só uma vez
+
 // --- FUNCIONALIDADE PRINCIPAL E NAVEGAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -23,15 +27,18 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetSection) {
                 targetSection.classList.add('active-section');
 
-                // 3. (IMPORTANTE PARA MAPAS) Garante que o mapa recalcule o tamanho ao ser exibido
+                // 3. (AQUI ESTÁ A CHAVE PARA O MAPA) Inicializa ou recalcula o mapa
                 if (targetId === 'logistica' && typeof initLogisticaMap !== 'undefined') {
-                     // Adiciona um pequeno delay para a seção ter tempo de aparecer antes de invalidar o mapa
+                     // Adiciona um pequeno delay para a seção ter tempo de aparecer
                      setTimeout(() => {
-                         // O Leaflet precisa ser invalidado ao tornar o mapa visível
-                         if (window.mapInstance) {
-                             window.mapInstance.invalidateSize();
-                         }
-                     }, 100); 
+                         if (!mapInitialized) {
+                            initLogisticaMap();
+                            mapInitialized = true;
+                        } else if (window.mapInstance) {
+                            // Se já inicializado, apenas garante que o tamanho está correto
+                            window.mapInstance.invalidateSize(); 
+                        }
+                     }, 50); // 50ms é geralmente suficiente
                 }
             }
 
@@ -52,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- CHAMADAS DE INICIALIZAÇÃO UNIFICADAS ---
+    // --- CHAMADAS DE INICIALIZAÇÃO SECUNDÁRIAS ---
 
-    // Ativa a primeira aba de conteúdo por padrão (Função do Bloco 2)
+    // Ativa a primeira aba de conteúdo por padrão
     const firstTabButton = document.querySelector('.content-tabs .tab-button');
     if (firstTabButton) {
         firstTabButton.click(); 
@@ -65,15 +72,10 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchNews();
     }
 
-    // Inicializar o Mapa
-    if (typeof initLogisticaMap !== 'undefined') {
-        initLogisticaMap(); 
-    }
-
-    // A lógica de preços CEPEA foi removida/comentada, então não precisa de chamada.
+    // NOTA: A FUNÇÃO initLogisticaMap não é chamada aqui, mas sim no clique da aba.
 });
 
-// Funcionalidade para as abas de conteúdo dentro da seção "Nosso Conteúdo" (Mantida inalterada)
+// Funcionalidade para as abas de conteúdo (Mantida inalterada)
 function openTab(evt, tabName) {
     let i, tabcontent, tabbuttons;
 
@@ -91,21 +93,117 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
+// --- FUNCIONALIDADE PARA A ABA NOTÍCIAS (MANTIDA PARA FUNCIONAR COM JSON) ---
+// (Requer o arquivo news.json no projeto)
+async function fetchNews() {
+    const newsContainer = document.getElementById('news-feed-container');
+    if (!newsContainer) return; 
+
+    newsContainer.innerHTML = '<p>Carregando notícias do feed...</p>';
+
+    try {
+        const response = await fetch('/news.json');
+
+        if (!response.ok) {
+            // Se o arquivo não existir (404), exibe uma mensagem amigável em vez de travar
+             newsContainer.innerHTML = '<p style="color: blue;">Em breve: Notícias atualizadas diariamente! (Arquivo news.json não encontrado ou vazio).</p>';
+             return;
+        }
+
+        const newsData = await response.json();
+
+        // Ordena as notícias da mais recente para a mais antiga (baseado na data)
+        newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let htmlContent = '';
+
+        if (newsData.length === 0) {
+            htmlContent = '<p>Nenhuma notícia disponível no momento.</p>';
+        } else {
+            newsData.forEach(item => {
+                const formattedDate = new Date(item.date).toLocaleDateString('pt-BR');
+
+                const imageHtml = item.image_url 
+                    ? `<img src="${item.image_url}" alt="${item.title}" class="news-image">`
+                    : '';
+
+                htmlContent += `
+                    <div class="news-item">
+                        ${imageHtml}
+
+                        <h3>${item.title}</h3>
+                        <div class="news-meta">
+                            <span>Data: ${formattedDate}</span>
+                            <span>Autor: ${item.author}</span>
+                        </div>
+                        <p class="news-summary">${item.summary}</p>
+                        ${item.link_url ? `<p><a href="${item.link_url}">${item.link_text || 'Saiba Mais'} &rarr;</a></p>` : ''}
+                    </div>
+                `;
+            });
+        }
+
+        newsContainer.innerHTML = htmlContent;
+
+    } catch (error) {
+        console.error("Erro ao buscar notícias:", error);
+        newsContainer.innerHTML = '<p style="color: red;">Não foi possível carregar o feed de notícias. Verifique o console para detalhes.</p>';
+    }
+}
+
 
 // --- FUNCIONALIDADE PARA A SEÇÃO LOGÍSTICA (MAPA) ---
-// MOVEMOS A VARIÁVEL map para o window.mapInstance para usarmos no clique
-window.mapInstance = null; // Variável global para guardar a instância do mapa
-
 function initLogisticaMap() {
+    // Dados simulados em JS (SUBSTITUI O GEOJSON POR ENQUANTO)
+    const portosDataSimulados = [
+        {
+            nome: "Porto de Santos (SP)",
+            lat: -23.9455,
+            lon: -46.3364,
+            volume_soja: 22500000,
+            volume_milho: 15800000,
+            volume_acucar: 8100000,
+            volume_importacao: 5000000,
+            unidade: "Ton/Ano"
+        },
+        {
+            nome: "Porto de Paranaguá (PR)",
+            lat: -25.5039,
+            lon: -48.5146,
+            volume_soja: 16200000,
+            volume_milho: 9300000,
+            volume_acucar: 0,
+            volume_importacao: 3500000,
+            unidade: "Ton/Ano"
+        },
+        {
+            nome: "Porto de Rio Grande (RS)",
+            lat: -32.0354,
+            lon: -52.0963,
+            volume_soja: 10900000,
+            volume_milho: 0,
+            volume_acucar: 0,
+            volume_importacao: 1500000,
+            unidade: "Ton/Ano"
+        },
+        {
+            nome: "Porto de Itaqui (MA)",
+            lat: -2.5714,
+            lon: -44.3411,
+            volume_soja: 7800000,
+            volume_milho: 5000000,
+            volume_acucar: 0,
+            volume_importacao: 2500000,
+            unidade: "Ton/Ano"
+        }
+    ];
+
     // 1. Verifica se o elemento do mapa existe
     if (!document.getElementById('mapa-agrolog')) return;
 
-    // Se já foi inicializado, apenas retorna
-    if (window.mapInstance) return; 
-
     // Inicializa o mapa, centralizado no Brasil
     const map = L.map('mapa-agrolog').setView([-14.235, -51.9253], 5);
-    window.mapInstance = map; // Salva a instância na variável global
+    window.mapInstance = map; // Salva a instância globalmente
 
     // Adiciona a camada de tiles (fundo do mapa)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -114,64 +212,41 @@ function initLogisticaMap() {
     }).addTo(map);
 
     const infoPanel = document.getElementById('porto-info-panel');
+    const formatter = new Intl.NumberFormat('pt-BR', { notation: 'compact', compactDisplay: 'short' });
 
     // Função para exibir as informações no painel
     function updateInfoPanel(properties) {
-        // Exemplo: O GeoJSON DEVE ter propriedades como 'nome', 'volume_soja', etc.
         let htmlContent = `
             <h3>${properties.nome || 'Porto Desconhecido'}</h3>
-            <p style="font-size: 0.9em; color: #555;">Volumes de Carga (Dados Integrados):</p>
+            <p style="font-size: 0.9em; color: #555;">Volumes de Carga (Dados Simulados - ${properties.unidade}):</p>
             <ul>
-                <li><span>Soja Exportada:</span> <span>${properties.volume_soja ? properties.volume_soja.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
-                <li><span>Milho Exportado:</span> <span>${properties.volume_milho ? properties.volume_milho.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
-                <li><span>Açúcar Exportado:</span> <span>${properties.volume_acucar ? properties.volume_acucar.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
-                <li><span>Importação Total:</span> <span>${properties.volume_importacao ? properties.volume_importacao.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
+                <li><span>Soja Exportada:</span> <span>${properties.volume_soja ? formatter.format(properties.volume_soja) : 'N/A'}</span></li>
+                <li><span>Milho Exportado:</span> <span>${properties.volume_milho ? formatter.format(properties.volume_milho) : 'N/A'}</span></li>
+                <li><span>Açúcar Exportado:</span> <span>${properties.volume_acucar ? formatter.format(properties.volume_acucar) : 'N/A'}</span></li>
+                <li><span>Importação Total:</span> <span>${properties.volume_importacao ? formatter.format(properties.volume_importacao) : 'N/A'}</span></li>
             </ul>
-            <p style="font-size: 0.8em; margin-top: 10px; color: #777;">Dados em ${properties.unidade || 'Toneladas'}.</p>
         `;
         infoPanel.innerHTML = htmlContent;
     }
 
-    // --- 2. Carregamento do GeoJSON de Portos ---
-    fetch('portos.geojson') // O GeoJSON deve estar na raiz do seu projeto
-        .then(response => {
-            if (!response.ok) throw new Error('Erro ao carregar portos.geojson. Verifique o nome do arquivo.');
-            return response.json();
-        })
-        .then(portosGeoJSON => {
-            L.geoJSON(portosGeoJSON, {
-                pointToLayer: function (feature, latlng) {
-                    // Usa o ícone customizado definido no CSS
-                    const portoIcon = L.divIcon({
-                        className: 'custom-porto-icon',
-                        iconSize: [18, 18],
-                        html: '<div></div>'
-                    });
-                    return L.marker(latlng, { icon: portoIcon });
-                },
-                onEachFeature: function (feature, layer) {
-                    // Adiciona a interatividade de clique
-                    layer.on('click', function() {
-                        updateInfoPanel(feature.properties);
-                        map.flyTo(layer.getLatLng(), 8); // Move o mapa e dá zoom no porto
-                    });
-                }
-            }).addTo(map);
-        })
-        .catch(error => {
-            console.error('Erro no processamento do mapa de Portos:', error);
-            infoPanel.innerHTML = '<p style="color: red;">Erro ao carregar dados geográficos. Certifique-se de que o arquivo <b>portos.geojson</b> está na raiz do projeto e tem o formato correto.</p>';
+    // --- Adicionando Marcadores Simulados ---
+    portosDataSimulados.forEach(porto => {
+        const marker = L.marker([porto.lat, porto.lon]).addTo(map);
+
+        const portoIcon = L.divIcon({
+            className: 'custom-porto-icon',
+            iconSize: [18, 18],
+            html: '<div></div>'
         });
+        marker.setIcon(portoIcon);
+
+        marker.on('click', function() {
+            updateInfoPanel(porto);
+            map.flyTo(marker.getLatLng(), 8);
+        });
+    });
+
+    // Alerta de que o GeoJSON real não foi carregado (para vocês saberem)
+    console.warn("ATENÇÃO: Não foi possível carregar o portos.geojson. Usando dados simulados em JS.");
+
 }
-
-
-// --- A FUNÇÃO fetchNews() DEVE ESTAR AQUI TAMBÉM ---
-// (Como você não enviou o código dela, ela está faltando na análise final,
-// mas vou presumir que você a colará abaixo do initLogisticaMap.)
-
-// Exemplo (cole a sua versão correta aqui):
-/*
-async function fetchNews() {
-    // ... sua lógica de leitura do news.json ...
-}
-*/

@@ -205,14 +205,13 @@ a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- ESTILOS DE PREÇOS CEPEA (MANTIDOS E SIMPLIFICADOS) --- */
+/* --- ESTILOS DE PREÇOS CEPEA --- */
 #prices-container {
     background-color: #e8f5e9;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #c8e6c9;
     min-height: 120px;
-    /* Ajuste para garantir que o widget CEPEA se centralize bem */
     display: flex;
     flex-direction: column;
     align-items: center; 
@@ -238,7 +237,7 @@ footer {
 }
 
 /* ========================================================== */
-/* --- NOVOS ESTILOS PARA SEÇÕES (Aplicados em Todas as Telas) --- */
+/* --- ESTILOS PARA SEÇÕES NOVAS (EM TODAS AS TELAS) --- */
 /* ========================================================== */
 
 /* --- SEÇÃO NOSSA EQUIPE --- */
@@ -294,13 +293,12 @@ footer {
     color: #555;
 }
 
-/* --- SEÇÃO NOTÍCIAS --- */
+/* --- SEÇÃO NOTÍCIAS (AJUSTADA PARA FUNCIONAR VIA JS) --- */
 #noticias h2 {
     text-align: center;
     margin-bottom: 30px;
 }
 
-/* O conteúdo das notícias deve ser formatado pelo script.js, mas mantemos o estilo do container caso você mude para JSON */
 #news-feed-container {
     display: flex;
     flex-direction: column;
@@ -309,7 +307,27 @@ footer {
     margin: 0 auto;
 }
 
-/* --- SEÇÃO LOGÍSTICA --- */
+/* Estilos de Cartão de Notícia (para quando o JS injetar o HTML) */
+.news-item {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border-left: 5px solid #4CAF50; /* Linha de destaque verde */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.news-item .news-image {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: block;
+}
+
+
+/* --- SEÇÃO LOGÍSTICA (MAPA) --- */
 .mapa-container {
     height: 550px;
     width: 100%;
@@ -398,6 +416,8 @@ footer {
     body {
         background-size: 100%;
     }
+
+    /* Notícias e Conteúdo quebra de linha em telas pequenas */
     .conteudo {
         flex-direction: column;
     }
@@ -412,6 +432,7 @@ footer {
     .team-member {
         width: 90%;
     }
+
     /* CORREÇÃO DO WIDGET CEPEA */
     #prices-container {
         align-items: center;
