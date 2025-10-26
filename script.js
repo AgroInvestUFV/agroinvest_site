@@ -153,40 +153,36 @@ function initLogisticaMap() {
             nome: "Porto de Santos (SP)",
             lat: -23.9455,
             lon: -46.3364,
-            volume_soja: 22500000,
-            volume_milho: 15800000,
-            volume_acucar: 8100000,
-            volume_importacao: 5000000,
+            volume_soja: 28051538,
+            volume_milho: 15909816,
+            volume_fertilizantes: 8335525,
             unidade: "Ton/Ano"
         },
         {
             nome: "Porto de Paranaguá (PR)",
             lat: -25.5039,
             lon: -48.5146,
-            volume_soja: 16200000,
-            volume_milho: 9300000,
-            volume_acucar: 0,
-            volume_importacao: 3500000,
+            volume_soja: 13215793,
+            volume_milho: 1062475,
+            volume_fertilizantes: 10781766,
             unidade: "Ton/Ano"
         },
         {
-            nome: "Porto de Rio Grande (RS)",
+            nome: "Porto de São Francisco do Sul (RS)",
             lat: -32.0354,
             lon: -52.0963,
-            volume_soja: 10900000,
-            volume_milho: 0,
-            volume_acucar: 0,
-            volume_importacao: 1500000,
+            volume_soja: 6975547,
+            volume_milho: 2424171,
+            volume_fertilizantes: 2321009,
             unidade: "Ton/Ano"
         },
         {
             nome: "Porto de Itaqui (MA)",
             lat: -2.5714,
             lon: -44.3411,
-            volume_soja: 7800000,
-            volume_milho: 5000000,
-            volume_acucar: 0,
-            volume_importacao: 2500000,
+            volume_soja: 13743918,
+            volume_milho: 4126541,
+            volume_fertilizantes: 3987837,
             unidade: "Ton/Ano"
         }
     ];
@@ -215,8 +211,8 @@ function initLogisticaMap() {
             <ul>
                 <li><span>Soja Exportada:</span> <span>${properties.volume_soja ? formatter.format(properties.volume_soja) : 'N/A'}</span></li>
                 <li><span>Milho Exportado:</span> <span>${properties.volume_milho ? formatter.format(properties.volume_milho) : 'N/A'}</span></li>
-                <li><span>Açúcar Exportado:</span> <span>${properties.volume_acucar ? formatter.format(properties.volume_acucar) : 'N/A'}</span></li>
-                <li><span>Importação Total:</span> <span>${properties.volume_importacao ? formatter.format(properties.volume_importacao) : 'N/A'}</span></li>
+                <li><span>Fertilizante Importado:</span> <span>${properties.volume_fertilizantes ? formatter.format(properties.volume_fertilizantes) : 'N/A'}</span></li>
+               
             </ul>
         `;
         infoPanel.innerHTML = htmlContent;
