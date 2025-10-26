@@ -5,12 +5,9 @@ body {
     background-color: #f8f8f8; 
     color: #333;
     line-height: 1.6;
-
-    /* A imagem de fundo agora será aplicada por um pseudo-elemento */
     position: relative;
 }
 
-/* NOVO: Pseudo-elemento para a Logo de Fundo Transparente */
 body::before {
     content: '';
     position: fixed;
@@ -18,19 +15,14 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-
-    /* Configurações da imagem */
     background-image: url('logo2.png');
     background-repeat: no-repeat;
     background-position: center center;
     background-size: 70%;
-
-    /* A chave: define a transparência da imagem e a coloca BEM atrás */
-    opacity: 0.05; /* Ajustado para um valor padrão sutil */
+    opacity: 0.05;
     z-index: -1;
 }
 
-/* O conteúdo principal deve estar acima do background. */
 main {
     position: relative;
     z-index: 2; 
@@ -293,7 +285,7 @@ footer {
     color: #555;
 }
 
-/* --- SEÇÃO NOTÍCIAS (AJUSTADA PARA FUNCIONAR VIA JS) --- */
+/* --- SEÇÃO NOTÍCIAS --- */
 #noticias h2 {
     text-align: center;
     margin-bottom: 30px;
@@ -307,12 +299,11 @@ footer {
     margin: 0 auto;
 }
 
-/* Estilos de Cartão de Notícia (para quando o JS injetar o HTML) */
 .news-item {
     background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
-    border-left: 5px solid #4CAF50; /* Linha de destaque verde */
+    border-left: 5px solid #4CAF50;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: box-shadow 0.3s ease;
 }
@@ -417,7 +408,6 @@ footer {
         background-size: 100%;
     }
 
-    /* Notícias e Conteúdo quebra de linha em telas pequenas */
     .conteudo {
         flex-direction: column;
     }
@@ -456,8 +446,5 @@ footer {
     .tab-button {
         font-size: 1em;
         padding: 10px 15px;
-    }
-    .price-item strong, .price-value-change {
-        font-size: 1em;
     }
 }

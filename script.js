@@ -27,18 +27,19 @@ document.addEventListener('DOMContentLoaded', () => {
             if (targetSection) {
                 targetSection.classList.add('active-section');
 
-                // 3. (AQUI ESTÁ A CHAVE PARA O MAPA) Inicializa ou recalcula o mapa
+                // 3. (RESOLVE O PROBLEMA DO MAPA) Inicializa ou recalcula o mapa
                 if (targetId === 'logistica' && typeof initLogisticaMap !== 'undefined') {
                      // Adiciona um pequeno delay para a seção ter tempo de aparecer
                      setTimeout(() => {
-                         if (!mapInitialized) {
+                         // Verifica se o Leaflet está carregado E se o mapa não foi inicializado
+                         if (typeof L !== 'undefined' && !mapInitialized) {
                             initLogisticaMap();
                             mapInitialized = true;
                         } else if (window.mapInstance) {
                             // Se já inicializado, apenas garante que o tamanho está correto
                             window.mapInstance.invalidateSize(); 
                         }
-                     }, 50); // 50ms é geralmente suficiente
+                     }, 50);
                 }
             }
 
@@ -71,11 +72,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (typeof fetchNews !== 'undefined') {
         fetchNews();
     }
-
-    // NOTA: A FUNÇÃO initLogisticaMap NÃO é chamada aqui, mas sim no clique da aba.
 });
 
-// Funcionalidade para as abas de conteúdo (Mantida inalterada)
+// Funcionalidade para as abas de conteúdo
 function openTab(evt, tabName) {
     let i, tabcontent, tabbuttons;
 
@@ -112,11 +111,13 @@ async function fetchNews() {
         newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         let htmlContent = '';
+
         if (newsData.length === 0) {
             htmlContent = '<p>Nenhuma notícia disponível no momento.</p>';
         } else {
             newsData.forEach(item => {
                 const formattedDate = new Date(item.date).toLocaleDateString('pt-BR');
+
                 const imageHtml = item.image_url 
                     ? `<img src="${item.image_url}" alt="${item.title}" class="news-image">`
                     : '';
