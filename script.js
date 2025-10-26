@@ -1,4 +1,6 @@
+// --- FUNCIONALIDADE PRINCIPAL E NAVEGAÇÃO ---
 document.addEventListener('DOMContentLoaded', () => {
+
     // Funcionalidade de navegação entre seções
     const navLinks = document.querySelectorAll('nav ul li a');
     const sections = document.querySelectorAll('main section');
@@ -7,21 +9,33 @@ document.addEventListener('DOMContentLoaded', () => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
 
-            // Remove a classe 'active-nav' de todos os links de navegação
+            // 1. Controle da navegação (links ativos)
             navLinks.forEach(link => link.classList.remove('active-nav'));
-            // Adiciona a classe 'active-nav' ao link clicado
             this.classList.add('active-nav');
 
             const targetId = this.getAttribute('href').substring(1);
 
-            // Remove a classe 'active-section' de todas as seções
+            // 2. Controle das seções (mostrar/esconder)
             sections.forEach(section => {
                 section.classList.remove('active-section');
             });
-            // Adiciona a classe 'active-section' à seção alvo para mostrá-la
-            document.getElementById(targetId).classList.add('active-section');
+            const targetSection = document.getElementById(targetId);
+            if (targetSection) {
+                targetSection.classList.add('active-section');
 
-            // Rolagem suave para a seção
+                // 3. (IMPORTANTE PARA MAPAS) Garante que o mapa recalcule o tamanho ao ser exibido
+                if (targetId === 'logistica' && typeof initLogisticaMap !== 'undefined') {
+                     // Adiciona um pequeno delay para a seção ter tempo de aparecer antes de invalidar o mapa
+                     setTimeout(() => {
+                         // O Leaflet precisa ser invalidado ao tornar o mapa visível
+                         if (window.mapInstance) {
+                             window.mapInstance.invalidateSize();
+                         }
+                     }, 100); 
+                }
+            }
+
+            // 4. Rolagem suave para a seção
             document.getElementById(targetId).scrollIntoView({
                 behavior: 'smooth'
             });
@@ -38,78 +52,126 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Carregar preços ao iniciar
- //   fetchPrices();
-    // Atualizar preços a cada 10 minutos (600000 ms) - Você pode ajustar a frequência
- //   setInterval(fetchPrices, 600000); 
+    // --- CHAMADAS DE INICIALIZAÇÃO UNIFICADAS ---
+
+    // Ativa a primeira aba de conteúdo por padrão (Função do Bloco 2)
+    const firstTabButton = document.querySelector('.content-tabs .tab-button');
+    if (firstTabButton) {
+        firstTabButton.click(); 
+    }
+
+    // Carregar Notícias
+    if (typeof fetchNews !== 'undefined') {
+        fetchNews();
+    }
+
+    // Inicializar o Mapa
+    if (typeof initLogisticaMap !== 'undefined') {
+        initLogisticaMap(); 
+    }
+
+    // A lógica de preços CEPEA foi removida/comentada, então não precisa de chamada.
 });
 
-// Funcionalidade para as abas de conteúdo dentro da seção "Nosso Conteúdo"
+// Funcionalidade para as abas de conteúdo dentro da seção "Nosso Conteúdo" (Mantida inalterada)
 function openTab(evt, tabName) {
     let i, tabcontent, tabbuttons;
 
-    // Esconde todo o conteúdo das abas
     tabcontent = document.getElementsByClassName("tab-content");
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].classList.remove("active");
     }
 
-    // Remove a classe 'active' de todos os botões de aba
     tabbuttons = document.getElementsByClassName("tab-button");
     for (i = 0; i < tabbuttons.length; i++) {
         tabbuttons[i].classList.remove("active");
     }
 
-    // Mostra o conteúdo da aba clicada e ativa o botão correspondente
     document.getElementById(tabName).classList.add("active");
     evt.currentTarget.classList.add("active");
 }
 
-// Abrir a primeira aba de conteúdo por padrão ao carregar a página
-document.addEventListener('DOMContentLoaded', () => {
-    const firstTabButton = document.querySelector('.content-tabs .tab-button');
-    if (firstTabButton) {
-        firstTabButton.click(); // Simula o clique no primeiro botão de aba
+
+// --- FUNCIONALIDADE PARA A SEÇÃO LOGÍSTICA (MAPA) ---
+// MOVEMOS A VARIÁVEL map para o window.mapInstance para usarmos no clique
+window.mapInstance = null; // Variável global para guardar a instância do mapa
+
+function initLogisticaMap() {
+    // 1. Verifica se o elemento do mapa existe
+    if (!document.getElementById('mapa-agrolog')) return;
+
+    // Se já foi inicializado, apenas retorna
+    if (window.mapInstance) return; 
+
+    // Inicializa o mapa, centralizado no Brasil
+    const map = L.map('mapa-agrolog').setView([-14.235, -51.9253], 5);
+    window.mapInstance = map; // Salva a instância na variável global
+
+    // Adiciona a camada de tiles (fundo do mapa)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 18,
+    }).addTo(map);
+
+    const infoPanel = document.getElementById('porto-info-panel');
+
+    // Função para exibir as informações no painel
+    function updateInfoPanel(properties) {
+        // Exemplo: O GeoJSON DEVE ter propriedades como 'nome', 'volume_soja', etc.
+        let htmlContent = `
+            <h3>${properties.nome || 'Porto Desconhecido'}</h3>
+            <p style="font-size: 0.9em; color: #555;">Volumes de Carga (Dados Integrados):</p>
+            <ul>
+                <li><span>Soja Exportada:</span> <span>${properties.volume_soja ? properties.volume_soja.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
+                <li><span>Milho Exportado:</span> <span>${properties.volume_milho ? properties.volume_milho.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
+                <li><span>Açúcar Exportado:</span> <span>${properties.volume_acucar ? properties.volume_acucar.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
+                <li><span>Importação Total:</span> <span>${properties.volume_importacao ? properties.volume_importacao.toLocaleString('pt-BR') : 'N/A'} ${properties.unidade || 'Ton'}</span></li>
+            </ul>
+            <p style="font-size: 0.8em; margin-top: 10px; color: #777;">Dados em ${properties.unidade || 'Toneladas'}.</p>
+        `;
+        infoPanel.innerHTML = htmlContent;
     }
-});
 
-// --- Funcionalidade para a aba de preços ---
-// async function fetchPrices() {
-//    const pricesContainer = document.getElementById('prices-container');
-//    const lastUpdatedTime = document.getElementById('last-updated-time');
-//    pricesContainer.innerHTML = '<p>Carregando dados de preços...</p>'; // Mensagem de carregamento
+    // --- 2. Carregamento do GeoJSON de Portos ---
+    fetch('portos.geojson') // O GeoJSON deve estar na raiz do seu projeto
+        .then(response => {
+            if (!response.ok) throw new Error('Erro ao carregar portos.geojson. Verifique o nome do arquivo.');
+            return response.json();
+        })
+        .then(portosGeoJSON => {
+            L.geoJSON(portosGeoJSON, {
+                pointToLayer: function (feature, latlng) {
+                    // Usa o ícone customizado definido no CSS
+                    const portoIcon = L.divIcon({
+                        className: 'custom-porto-icon',
+                        iconSize: [18, 18],
+                        html: '<div></div>'
+                    });
+                    return L.marker(latlng, { icon: portoIcon });
+                },
+                onEachFeature: function (feature, layer) {
+                    // Adiciona a interatividade de clique
+                    layer.on('click', function() {
+                        updateInfoPanel(feature.properties);
+                        map.flyTo(layer.getLatLng(), 8); // Move o mapa e dá zoom no porto
+                    });
+                }
+            }).addTo(map);
+        })
+        .catch(error => {
+            console.error('Erro no processamento do mapa de Portos:', error);
+            infoPanel.innerHTML = '<p style="color: red;">Erro ao carregar dados geográficos. Certifique-se de que o arquivo <b>portos.geojson</b> está na raiz do projeto e tem o formato correto.</p>';
+        });
+}
 
-//    try {
-        // Faz a requisição para o seu arquivo prices.json
-//        const response = await fetch('/prices.json');
 
- //       // Verifica se a requisição foi bem-sucedida (status 200 OK)
-//        if (!response.ok) {
-//            throw new Error(`Erro HTTP! Status: ${response.status}`);
-//        }
+// --- A FUNÇÃO fetchNews() DEVE ESTAR AQUI TAMBÉM ---
+// (Como você não enviou o código dela, ela está faltando na análise final,
+// mas vou presumir que você a colará abaixo do initLogisticaMap.)
 
-//        const pricesToDisplay = await response.json(); // Converte a resposta para JSON
-
-//        let htmlContent = '';
-//        pricesToDisplay.forEach(item => {
-            // Usa o campo 'direction' para adicionar a classe CSS correspondente ('up', 'down', 'unchanged')
-//            const changeClass = item.direction === 'up' ? 'up' : (item.direction === 'down' ? 'down' : 'unchanged');
-//            htmlContent += `
-//                <div class="price-item">
- //                   <strong>${item.name}:</strong> 
-//                    <span class="price-value-change">
- //                       ${item.value} 
- //                       (<span class="change ${changeClass}">${item.change}</span>)
- //                   </span>
- //               </div>
- //           `;
-//        });
-//        pricesContainer.innerHTML = htmlContent; // Insere o HTML gerado no contêiner de preços
-//        lastUpdatedTime.textContent = new Date().toLocaleString('pt-BR'); // Atualiza o horário da última atualização
-
-//    } catch (error) {
-//        console.error("Erro ao buscar preços:", error);
-//        pricesContainer.innerHTML = '<p>Não foi possível carregar os preços no momento. Verifique o arquivo prices.json.</p>';
-//        lastUpdatedTime.textContent = 'Erro na atualização';
-//    }
-//}
+// Exemplo (cole a sua versão correta aqui):
+/*
+async function fetchNews() {
+    // ... sua lógica de leitura do news.json ...
+}
+*/

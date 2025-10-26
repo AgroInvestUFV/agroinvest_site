@@ -2,20 +2,18 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f8f8f8; /* Fundo suave */
+    background-color: #f8f8f8; 
     color: #333;
     line-height: 1.6;
 
-    /* A imagem de fundo agora será aplicada por um pseudo-elemento 
-       para ter controle de opacidade sem afetar o texto */
-    position: relative; /* Necessário para posicionar o pseudo-elemento */
-    /* Removidas as propriedades background-image, opacity e z-index */
+    /* A imagem de fundo agora será aplicada por um pseudo-elemento */
+    position: relative;
 }
 
 /* NOVO: Pseudo-elemento para a Logo de Fundo Transparente */
 body::before {
     content: '';
-    position: fixed; /* Fixa no fundo ao rolar */
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -28,32 +26,30 @@ body::before {
     background-size: 70%;
 
     /* A chave: define a transparência da imagem e a coloca BEM atrás */
-    opacity: 0.0; /* 5% de opacidade, bem transparente */
-    z-index: -1; /* Manda a imagem para trás de TUDO no site */
+    opacity: 0.05; /* Ajustado para um valor padrão sutil */
+    z-index: -1;
 }
-
-
 
 /* O conteúdo principal deve estar acima do background. */
 main {
-    position: relative; /* Para garantir que o main fique sobre o body */
-    z-index: 2; /* Garante que o conteúdo do main esteja acima da logo de fundo */
+    position: relative;
+    z-index: 2; 
     padding: 20px;
     max-width: 1000px;
     margin: 30px auto;
-    background-color: white; /* Fundo branco para o conteúdo principal */
+    background-color: white;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
 
 header {
-    background-color: #000000; /* Verde mais escuro para o cabeçalho */
+    background-color: #000000;
     color: white;
     padding: 1.5rem 0;
     text-align: center;
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    position: relative; 
-    z-index: 3; 
+    position: relative;
+    z-index: 3;
 }
 
 .header-content {
@@ -98,7 +94,7 @@ nav ul li a {
 
 nav ul li a:hover,
 nav ul li a.active-nav {
-    background-color: #388e3c; /* Verde ligeiramente mais claro no hover */
+    background-color: #388e3c;
     transform: translateY(-2px);
 }
 
@@ -209,55 +205,18 @@ a:hover {
     to { opacity: 1; transform: translateY(0); }
 }
 
+/* --- ESTILOS DE PREÇOS CEPEA (MANTIDOS E SIMPLIFICADOS) --- */
 #prices-container {
     background-color: #e8f5e9;
     padding: 20px;
     border-radius: 8px;
     border: 1px solid #c8e6c9;
     min-height: 120px;
+    /* Ajuste para garantir que o widget CEPEA se centralize bem */
     display: flex;
     flex-direction: column;
+    align-items: center; 
     gap: 10px;
-}
-
-.price-item {
-    padding-bottom: 8px;
-    border-bottom: 1px dashed #c0c0c0;
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-
-.price-item:last-child {
-    border-bottom: none;
-}
-
-.price-item strong {
-    color: #1b5e20;
-    font-size: 1.1em;
-}
-
-.price-value-change {
-    font-size: 1.1em;
-    font-weight: 600;
-    display: flex;
-    align-items: baseline;
-    gap: 8px;
-}
-
-.price-value-change .change {
-    font-size: 0.9em;
-    font-weight: normal;
-}
-
-.price-item .up {
-    color: #2e7d32;
-}
-.price-item .down {
-    color: #c62828;
-}
-.price-item .unchanged {
-    color: #616161;
 }
 
 .last-updated {
@@ -278,16 +237,19 @@ footer {
     box-shadow: 0 -2px 5px rgba(0,0,0,0.2);
 }
 
-/* --- ESTILOS DA SEÇÃO NOSSA EQUIPE (EM TODAS AS TELAS) --- */
+/* ========================================================== */
+/* --- NOVOS ESTILOS PARA SEÇÕES (Aplicados em Todas as Telas) --- */
+/* ========================================================== */
 
+/* --- SEÇÃO NOSSA EQUIPE --- */
 #equipe {
-    text-align: center; 
+    text-align: center;
 }
 
 .team-container {
     display: flex;
-    flex-wrap: wrap; 
-    justify-content: center; 
+    flex-wrap: wrap;
+    justify-content: center;
     gap: 30px;
     margin-top: 30px;
 }
@@ -297,18 +259,18 @@ footer {
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    width: 250px; 
+    width: 250px;
     text-align: center;
     transition: transform 0.3s ease;
 }
 
 .team-member:hover {
-    transform: translateY(-5px); 
+    transform: translateY(-5px);
 }
 
 .member-photo {
-    width: 100px; 
-    height: 100px; 
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     object-fit: cover;
     border: 4px solid #4CAF50;
@@ -332,85 +294,76 @@ footer {
     color: #555;
 }
 
-/*
- * ESTILOS PARA A SEÇÃO DE NOTÍCIAS (EM TODAS AS TELAS)
- */
-.container-noticias {
-    margin-top: 20px;
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: #fff;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.container-noticias h1 {
+/* --- SEÇÃO NOTÍCIAS --- */
+#noticias h2 {
     text-align: center;
-    color: #333;
-    border-bottom: 2px solid #e0e0e0;
-    padding-bottom: 10px;
     margin-bottom: 30px;
 }
 
-.lista-noticias {
+/* O conteúdo das notícias deve ser formatado pelo script.js, mas mantemos o estilo do container caso você mude para JSON */
+#news-feed-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- SEÇÃO LOGÍSTICA --- */
+.mapa-container {
+    height: 550px;
+    width: 100%;
+    min-height: 300px;
+    border-radius: 8px;
+    margin: 20px 0;
+    border: 1px solid #ccc;
+}
+
+/* Estilos para o painel de informações */
+#porto-info-panel {
+    min-height: 150px;
+    padding: 20px;
+    background-color: #f0fff0;
+    border-left: 5px solid #2e7d32;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    margin-top: 20px;
+}
+
+#porto-info-panel h3 {
+    color: #2e7d32;
+    margin-top: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px dashed #c8e6c9;
+}
+
+#porto-info-panel ul {
     list-style: none;
     padding: 0;
+    margin: 10px 0 0 0;
 }
 
-.noticia {
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    margin-bottom: 25px;
-    padding: 15px;
-    background-color: #fff;
-    transition: box-shadow 0.3s ease;
-}
-
-.noticia:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-}
-
-.data {
-    font-size: 0.8em;
-    color: #666;
-    text-align: right;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-.conteudo {
+#porto-info-panel ul li {
     display: flex;
-    gap: 15px;
-    align-items: flex-start;
+    justify-content: space-between;
+    padding: 5px 0;
+    font-size: 0.95em;
 }
 
-.conteudo img {
-    width: 200px;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 4px;
-    flex-shrink: 0;
+/* Estilo do Marcador Customizado (Ponto) */
+.custom-porto-icon {
+    background-color: #007bff;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 2px solid #ffffff;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+    transform: translate(-7px, -7px);
 }
 
-.texto-noticia {
-    flex-grow: 1;
-}
-
-.texto-noticia h2 {
-    margin-top: 0;
-    color: #0056b3;
-    font-size: 1.2em;
-}
-
-.texto-noticia p {
-    margin-bottom: 10px;
-    line-height: 1.5;
-    color: #444;
-}
-
+/* ========================================================== */
 /* --- MEDIA QUERIES (RESPONSIVIDADE) --- */
+/* ========================================================== */
 
 @media (max-width: 768px) {
     .header-content {
@@ -445,10 +398,6 @@ footer {
     body {
         background-size: 100%;
     }
-}
-
-@media (max-width: 600px) {
-    /* Mídia Query para Notícias (Empilha Imagem e Texto em telas pequenas) */
     .conteudo {
         flex-direction: column;
     }
@@ -459,6 +408,16 @@ footer {
     }
     .container-noticias {
         padding: 15px;
+    }
+    .team-member {
+        width: 90%;
+    }
+    /* CORREÇÃO DO WIDGET CEPEA */
+    #prices-container {
+        align-items: center;
+    }
+    .cepea-widget-container table {
+        width: max-content !important; 
     }
 }
 
@@ -480,45 +439,4 @@ footer {
     .price-item strong, .price-value-change {
         font-size: 1em;
     }
-    .team-member {
-        width: 90%; /* Ocupa quase a largura total em telas muito pequenas */
-    }
-
-
-
-
-    /* --- CORREÇÃO DA TABELA DO CEPEA PARA TELAS PEQUENAS --- */
-
-    /* Aplicamos a rolagem horizontal no container que envolve o script do CEPEA */
-    #prices-container {
-        /* (Seu código existente da #prices-container já está aqui, esta é só uma referência) */
-        /* ... */
-    }
-
-    @media (max-width: 768px) {
-        /* Esta regra será aplicada em tablets e celulares */
-        #prices-container {
-            background-color: #e8f5e9;
-            padding: 20px;
-            border-radius: 8px;
-            border: 1px solid #c8e6c9;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-
-            /* ⭐ NOVO: Centraliza o conteúdo dentro do container */
-            align-items: center; 
-        }
-
-        /* Regras adicionais se a tabela ainda estiver muito grande no eixo Y */
-        .cepea-widget-container table {
-            /* Garante que a tabela não tente ser mais larga que o container */
-            width: max-content !important; 
-        }
-    }
-
-
-
-
 }
