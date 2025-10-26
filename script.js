@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
         fetchNews();
     }
 
-    // NOTA: A FUNÇÃO initLogisticaMap não é chamada aqui, mas sim no clique da aba.
+    // NOTA: A FUNÇÃO initLogisticaMap NÃO é chamada aqui, mas sim no clique da aba.
 });
 
 // Funcionalidade para as abas de conteúdo (Mantida inalterada)
@@ -93,8 +93,7 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 
-// --- FUNCIONALIDADE PARA A ABA NOTÍCIAS (MANTIDA PARA FUNCIONAR COM JSON) ---
-// (Requer o arquivo news.json no projeto)
+// --- FUNÇÃO PARA AS NOTÍCIAS (REQUER O ARQUIVO news.json) ---
 async function fetchNews() {
     const newsContainer = document.getElementById('news-feed-container');
     if (!newsContainer) return; 
@@ -105,24 +104,19 @@ async function fetchNews() {
         const response = await fetch('/news.json');
 
         if (!response.ok) {
-            // Se o arquivo não existir (404), exibe uma mensagem amigável em vez de travar
              newsContainer.innerHTML = '<p style="color: blue;">Em breve: Notícias atualizadas diariamente! (Arquivo news.json não encontrado ou vazio).</p>';
              return;
         }
 
         const newsData = await response.json();
-
-        // Ordena as notícias da mais recente para a mais antiga (baseado na data)
         newsData.sort((a, b) => new Date(b.date) - new Date(a.date));
 
         let htmlContent = '';
-
         if (newsData.length === 0) {
             htmlContent = '<p>Nenhuma notícia disponível no momento.</p>';
         } else {
             newsData.forEach(item => {
                 const formattedDate = new Date(item.date).toLocaleDateString('pt-BR');
-
                 const imageHtml = item.image_url 
                     ? `<img src="${item.image_url}" alt="${item.title}" class="news-image">`
                     : '';
@@ -130,7 +124,6 @@ async function fetchNews() {
                 htmlContent += `
                     <div class="news-item">
                         ${imageHtml}
-
                         <h3>${item.title}</h3>
                         <div class="news-meta">
                             <span>Data: ${formattedDate}</span>
@@ -142,7 +135,6 @@ async function fetchNews() {
                 `;
             });
         }
-
         newsContainer.innerHTML = htmlContent;
 
     } catch (error) {
@@ -154,7 +146,7 @@ async function fetchNews() {
 
 // --- FUNCIONALIDADE PARA A SEÇÃO LOGÍSTICA (MAPA) ---
 function initLogisticaMap() {
-    // Dados simulados em JS (SUBSTITUI O GEOJSON POR ENQUANTO)
+    // DADOS SIMULADOS (Para garantir que o mapa funcione sem o portos.geojson)
     const portosDataSimulados = [
         {
             nome: "Porto de Santos (SP)",
@@ -245,8 +237,5 @@ function initLogisticaMap() {
             map.flyTo(marker.getLatLng(), 8);
         });
     });
-
-    // Alerta de que o GeoJSON real não foi carregado (para vocês saberem)
-    console.warn("ATENÇÃO: Não foi possível carregar o portos.geojson. Usando dados simulados em JS.");
 
 }

@@ -1,0 +1,22 @@
+[
+    {
+        "id": 1,
+        "title": "Liga Agroinvest Inicia Novo Ciclo de Estudos em Mercados Futuros",
+        "date": "2025-10-25",
+        "author": "Secretaria Agroinvest",
+        "summary": "Nesta semana, a Agroinvest lançou o cronograma para o próximo ciclo, focado em derivativos agrícolas e análise de risco para milho e soja. Novos membros são bem-vindos para as sessões de estudo.",
+        "link_text": "Leia o cronograma",
+        "link_url": "#conteudo-aba-analises",
+        "image_url": "news_estudos.jpg"
+    },
+    {
+        "id": 2,
+        "title": "Panorama de Preços: Dólar e Petróleo Pressionam Custo de Fertilizantes",
+        "date": "2025-10-24",
+        "author": "Equipe de Análise",
+        "summary": "Nossa equipe analisa como a alta recente na cotação do dólar e do petróleo Brent afeta diretamente os custos de insumos importados, como a ureia e o potássio, impactando o planejamento da próxima safra.",
+        "link_text": "Ver dados de cotação",
+        "link_url": "#precos",
+        "image_url": "news_cotacao.jpg"
+    }
+]
