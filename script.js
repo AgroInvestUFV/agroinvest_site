@@ -61,12 +61,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // --- CHAMADAS DE INICIALIZAÇÃO SECUNDÁRIAS ---
-
-    // Ativa a primeira aba de conteúdo por padrão
-    const firstTabButton = document.querySelector('.content-tabs .tab-button');
-    if (firstTabButton) {
-        firstTabButton.click(); 
-    }
+  
+  // Chamada para carregar o Conteúdo Dinâmico
+  if (typeof fetchContent !== 'undefined') {
+      fetchContent();
+  }
+   
 
     // Carregar Notícias
     if (typeof fetchNews !== 'undefined') {
@@ -75,22 +75,101 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Funcionalidade para as abas de conteúdo
-function openTab(evt, tabName) {
-    let i, tabcontent, tabbuttons;
+// Funcionalidade para as abas de conteúdo
+function openTab(tabId, buttonElement) {
+    // 1. Esconde todos os conteúdos
+    document.querySelectorAll('.tab-content-dynamic').forEach(content => {
+        content.classList.remove('active');
+        content.style.display = 'none'; // Usado para garantir que não ocupe espaço
+    });
 
-    tabcontent = document.getElementsByClassName("tab-content");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].classList.remove("active");
+    // 2. Desativa todos os botões
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('active');
+    });
+
+    // 3. Exibe o conteúdo desejado
+    const targetContent = document.getElementById(tabId + '-content');
+    if (targetContent) {
+        targetContent.classList.add('active');
+        targetContent.style.display = 'block'; // Mostra o conteúdo
     }
 
-    tabbuttons = document.getElementsByClassName("tab-button");
-    for (i = 0; i < tabbuttons.length; i++) {
-        tabbuttons[i].classList.remove("active");
+    // 4. Ativa o botão
+    if (buttonElement) {
+        buttonElement.classList.add('active');
+    } else {
+        // Se chamado sem o botão (ex: na inicialização), procura pelo botão
+        const autoButton = document.querySelector(`.tab-button[data-tab-id="${tabId}"]`);
+        if (autoButton) {
+             autoButton.classList.add('active');
+        }
     }
-
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
 }
+
+// --- FUNÇÃO PARA CARREGAR O CONTEÚDO DINÂMICO ---
+async function fetchContent() {
+    const tabsContainer = document.getElementById('content-tabs-container');
+    const displayArea = document.getElementById('content-display-area');
+
+    if (!tabsContainer || !displayArea) return;
+
+    tabsContainer.innerHTML = '<p>Carregando conteúdo...</p>';
+
+    try {
+        const response = await fetch('/content.json');
+
+        if (!response.ok) {
+             tabsContainer.innerHTML = '<p style="color: red;">Não foi possível carregar a base de conteúdo (content.json).</p>';
+             return;
+        }
+
+        const contentData = await response.json();
+        let tabsHtml = '';
+        let contentHtml = '';
+        let firstTabId = '';
+
+        contentData.forEach((item, index) => {
+            // 1. Cria o HTML do Botão
+            const isActive = index === 0;
+            if (index === 0) {
+                firstTabId = item.id;
+            }
+
+            tabsHtml += `
+                <button 
+                    class="tab-button" 
+                    data-tab-id="${item.id}"
+                    onclick="openTab('${item.id}', this)">
+                    ${item.title}
+                </button>
+            `;
+
+            // 2. Cria o HTML do Conteúdo
+            contentHtml += `
+                <div id="${item.id}-content" class="tab-content-dynamic tab-content" style="display: none;">
+                    ${item.html_content}
+                </div>
+            `;
+        });
+
+        // 3. Insere no HTML
+        tabsContainer.innerHTML = tabsHtml;
+        displayArea.innerHTML = contentHtml;
+
+        // 4. Ativa a primeira aba por padrão
+        if (firstTabId) {
+            openTab(firstTabId);
+        }
+
+    } catch (error) {
+        console.error("Erro ao carregar conteúdo:", error);
+        tabsContainer.innerHTML = '<p style="color: red;">Falha ao processar o conteúdo.</p>';
+    }
+}
+
+
+
 
 // --- FUNÇÃO PARA AS NOTÍCIAS (REQUER O ARQUIVO news.json) ---
 async function fetchNews() {

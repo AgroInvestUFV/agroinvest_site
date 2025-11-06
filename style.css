@@ -192,6 +192,27 @@ a:hover {
     display: block;
 }
 
+/* Garante que o novo bloco dinâmico use os mesmos estilos */
+.tab-content-dynamic {
+    display: none;
+    padding: 25px;
+    border: 1px solid #ddd;
+    border-top: none;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
+    background-color: #ffffff;
+    animation: fadeIn 0.5s ease-out;
+}
+
+.tab-content-dynamic.active {
+    display: block;
+}
+
+/* O seletor .tab-content continua sendo usado no CSS para o bloco principal */
+
+
+
+
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
