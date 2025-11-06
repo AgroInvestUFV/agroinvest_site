@@ -146,74 +146,40 @@ async function fetchNews() {
 
 
 // --- FUNCIONALIDADE PARA A SEÇÃO LOGÍSTICA (MAPA) ---
-// --- FUNCIONALIDADE PARA A SEÇÃO LOGÍSTICA (MAPA) ---
 async function initLogisticaMap() {
   // ====== CONFIG ======
   const SHEET_ID  = '1Od8M31I6WNJsBBYXb0uWgou5el3C616n';
   const SHEET_GID = '1325738157'; // gid da aba "Dados Relatório (BI)"
-  // Sua planilha está como: X = LAT, Y = LON
-  const COORDS_ORDER = 'X_LAT_Y_LON';
-
-  // URL CSV público (planilha como "Qualquer pessoa com o link – Visualizador")
-  const buildCsvUrl = (id, gid) =>
-    `https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`;
+  const buildTsvUrl = (id, gid) =>
+    `https://docs.google.com/spreadsheets/d/${id}/export?format=tsv&gid=${gid}`;
 
   // ====== HELPERS ======
   const normalizeKey = (s) => (s || '')
     .toString()
     .normalize('NFD').replace(/[\u0300-\u036f]/g, '')
-    .replace(/\(.*?\)/g, '')
     .replace(/\s+/g, ' ')
     .trim()
     .toLowerCase();
 
-  // Converte "−46,31" / "–46,31" / "—46,31" / "-46,31" -> -46.31
-  // e "28.051.538,12" -> 28051538.12
   const parseNumberBR = (val) => {
     if (val == null) return null;
     if (typeof val === 'number') return val;
     let s = String(val).trim();
-
-    // normaliza possíveis traços/minus em Unicode e remove espaços especiais
-    s = s
-      .replace(/[\u2212\u2012\u2013\u2014]/g, '-') // minus, figure dash, en dash, em dash -> '-'
-      .replace(/\s+/g, '');
-
-    // mantém apenas dígitos, vírgula, ponto e hífen
+    s = s.replace(/[\u2212\u2012\u2013\u2014]/g, '-').replace(/\s+/g, '');
     s = s.replace(/[^\d.,-]/g, '');
     if (!s) return null;
-
-    // remove separadores de milhar, converte vírgula decimal -> ponto
     const norm = s.replace(/\.(?=\d{3}(\D|$))/g, '').replace(',', '.');
     const n = Number(norm);
     return Number.isFinite(n) ? n : null;
   };
 
-  // CSV parser simples (suporta aspas e vírgulas internas)
-  function parseCSV(text) {
-    const rows = [];
-    let i = 0, field = '', row = [], inQuotes = false;
-    while (i < text.length) {
-      const c = text[i];
-      if (inQuotes) {
-        if (c === '"') {
-          if (text[i + 1] === '"') { field += '"'; i += 2; continue; }
-          inQuotes = false; i++; continue;
-        } else { field += c; i++; continue; }
-      } else {
-        if (c === '"') { inQuotes = true; i++; continue; }
-        if (c === ',') { row.push(field); field = ''; i++; continue; }
-        if (c === '\r') { i++; continue; }
-        if (c === '\n') { row.push(field); rows.push(row); field=''; row=[]; i++; continue; }
-        field += c; i++;
-      }
-    }
-    row.push(field); rows.push(row);
-    return rows;
+  function parseTSV(text) {
+    const lines = text.replace(/\r/g, '').split('\n');
+    return lines.map(line => line.split('\t'));
   }
 
-  function csvToObjects(text) {
-    const matrix = parseCSV(text);
+  function tsvToObjects(text) {
+    const matrix = parseTSV(text).filter(row => row.length && row.some(x => x !== ''));
     if (!matrix.length) return [];
     const headers = matrix[0].map(h => (h || '').toString().trim());
     const out = [];
@@ -243,23 +209,6 @@ async function initLogisticaMap() {
     }
     return null;
   };
-
-  function resolveCoords(x, y) {
-    if (!Number.isFinite(x) || !Number.isFinite(y)) return null;
-    if (COORDS_ORDER === 'X_LON_Y_LAT') return { lon: x, lat: y };
-    if (COORDS_ORDER === 'X_LAT_Y_LON') return { lon: y, lat: x };
-
-    // AUTO (não usado aqui, mas deixo caso volte)
-    const inLatBR = (v) => v >= -34.5 && v <= 5.5;
-    const inLonBR = (v) => v >= -74.5 && v <= -28.5;
-    const isLat = (v) => v >= -90 && v <= 90;
-    const isLon = (v) => v >= -180 && v <= 180;
-    if (inLatBR(x) && inLonBR(y)) return { lat: x, lon: y };
-    if (inLatBR(y) && inLonBR(x)) return { lat: y, lon: x };
-    if (isLat(x) && isLon(y))     return { lat: x, lon: y };
-    if (isLat(y) && isLon(x))     return { lat: y, lon: x };
-    return null;
-  }
 
   // ====== MAPA BASE ======
   const el = document.getElementById('mapa-agrolog');
@@ -296,20 +245,20 @@ async function initLogisticaMap() {
     `;
   }
 
-  // ====== BUSCA CSV ======
+  // ====== BUSCA TSV ======
   let rows = null;
   try {
-    const res = await fetch(buildCsvUrl(SHEET_ID, SHEET_GID));
+    const res = await fetch(buildTsvUrl(SHEET_ID, SHEET_GID));
     if (!res.ok) {
       showMaintenance(`Falha ao acessar a planilha (HTTP ${res.status}). Verifique o compartilhamento e o GID.`);
       console.warn('HTTP error', res.status, await res.text());
       return;
     }
-    const csv = await res.text();
-    rows = csvToObjects(csv);
+    const tsv = await res.text();
+    rows = tsvToObjects(tsv);
   } catch (e) {
-    showMaintenance(`Erro de rede ao buscar a planilha (CSV). Veja o console.`);
-    console.warn('Fetch/CSV error', e);
+    showMaintenance(`Erro de rede ao buscar a planilha (TSV). Veja o console.`);
+    console.warn('Fetch/TSV error', e);
     return;
   }
 
@@ -321,33 +270,22 @@ async function initLogisticaMap() {
       const soja  = parseNumberBR(pick(r, ['Movimentação de Soja (t)', 'Movimentacao de Soja']));
       const milho = parseNumberBR(pick(r, ['Movimentação de Milho (t)', 'Movimentacao de Milho']));
       const fert  = parseNumberBR(pick(r, ['Movimentação Fertilizantes (t)', 'Movimentacao Fertilizantes']));
-
-      const xRaw  = pick(r, ['Coordenadas (X)', 'Latitude', 'X']);
-      const yRaw  = pick(r, ['Coordenadas (Y)', 'Longitude', 'Y']);
-      const x     = parseNumberBR(xRaw);
-      const y     = parseNumberBR(yRaw);
-
+      let lon = parseNumberBR(pick(r, ['Coordenadas (X)', 'Longitude', 'X']));
+      let lat = parseNumberBR(pick(r, ['Coordenadas (Y)', 'Latitude', 'Y']));
       const tipo  = pick(r, ['Tipo de Porto', 'Tipo']);
       const unidade = 'Ton/Ano';
 
-      const coord = resolveCoords(x, y);
-      if (!coord) return null;
+      if (!(Number.isFinite(lon) && Number.isFinite(lat))) return null;
+      if (lon > 0 && lon <= 100) lon = -lon;
 
       return {
         type: 'Feature',
-        properties: {
-          nome, unidade,
-          volume_soja: soja,
-          volume_milho: milho,
-          volume_fertilizantes: fert,
-          tipo_porto: tipo
-        },
-        geometry: { type: 'Point', coordinates: [coord.lon, coord.lat] }
+        properties: { nome, unidade, volume_soja: soja, volume_milho: milho, volume_fertilizantes: fert, tipo_porto: tipo },
+        geometry: { type: 'Point', coordinates: [lon, lat] }
       };
     }).filter(Boolean);
   }
 
-  // ====== FALLBACK ======
   if (!features || !features.length) {
     const sample = rows && rows[0] ? Object.keys(rows[0]).join(' | ') : '(sem linhas)';
     showMaintenance(`Sem dados válidos. Confira cabeçalhos e coordenadas. Detectei: ${sample}`);
@@ -356,11 +294,7 @@ async function initLogisticaMap() {
   }
 
   // ====== DESENHO ======
-  const totalVol = f =>
-    (f.properties.volume_soja || 0) +
-    (f.properties.volume_milho || 0) +
-    (f.properties.volume_fertilizantes || 0);
-
+  const totalVol = f => (f.properties.volume_soja || 0) + (f.properties.volume_milho || 0) + (f.properties.volume_fertilizantes || 0);
   const max = Math.max(...features.map(totalVol)) || 1;
 
   features.forEach(f => {
@@ -384,7 +318,19 @@ async function initLogisticaMap() {
     const tipo = f.properties.tipo_porto ? ` · ${f.properties.tipo_porto}` : '';
     marker.bindTooltip(`${f.properties.nome || 'Porto'}${tipo} — ${fmt.format(totalVol(f))} ${f.properties.unidade || ''}`);
   });
+
+  // ====== AUTO AJUSTE DE ZOOM ======
+  const latlngs = features.map(f => [f.geometry.coordinates[1], f.geometry.coordinates[0]]);
+  if (latlngs.length) {
+    const bounds = L.latLngBounds(latlngs);
+    map.fitBounds(bounds.pad(0.08));
+  }
 }
+
+
+
+
+
 
 
 
