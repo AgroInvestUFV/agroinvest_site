@@ -1,22 +1,35 @@
 [
     {
         "id": 1,
-        "title": "Liga Agroinvest Inicia Novo Ciclo de Estudos em Mercados Futuros",
-        "date": "2025-10-25",
-        "author": "Secretaria Agroinvest",
-        "summary": "Nesta semana, a Agroinvest lançou o cronograma para o próximo ciclo, focado em derivativos agrícolas e análise de risco para milho e soja. Novos membros são bem-vindos para as sessões de estudo.",
-        "link_text": "Leia o cronograma",
-        "link_url": "#conteudo-aba-analises",
-        "image_url": "news_estudos.jpg"
+        "title": "China retoma compras dos EUA e impulsiona Chicago; soja brasileira segue competitiva",
+        "date": "2025-11-05-",
+        "author": "Noticias Agricolas",
+        "summary": "A China retomou compras de grãos dos EUA após um novo acordo comercial, impulsionando os preços na Bolsa de Chicago. Segundo Flávio França, da Datagro, a soja brasileira segue competitiva, pois a alta nos EUA reduziu os prêmios de exportação no Brasil, tornando o produto nacional mais barato.",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/videos/soja/410460-china-retoma-compras-dos-eua-e-impulsiona-chicago-soja-brasileira-segue-competitiva.html",
+        "image_url": "news_2025.11.05_n1.jpg"
     },
     {
         "id": 2,
-        "title": "Panorama de Preços: Dólar e Petróleo Pressionam Custo de Fertilizantes",
-        "date": "2025-10-24",
+        "title": "CRA aprova projeto que amplia uso de recursos dos fundos constitucionais no crédito fundiário",
+        "date": "2025-11-03",
+        "author": "Noticias Agricolas",
+        "summary": "O Senado aprovou um projeto que permite usar parte dos fundos regionais (FNO, FNE e FCO) para financiar o crédito fundiário, ajudando famílias rurais a comprar terras e fortalecer a agricultura familiar. A proposta amplia o número de beneficiários, incluindo pequenos agricultores e trabalhadores sem terra, e prevê assistência técnica para o bom uso dos recursos. O texto mantém o foco regional de cada fundo e agora segue para análise da Comissão de Assuntos Econômicos (CAE).",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/noticias/agronegocio/410182-cra-aprova-projeto-que-amplia-uso-de-recursos-dos-fundos-constitucionais-no-credito-fundiario.html",
+        "image_url": "news_2025.11.05_n3.jpg"
+    },
+
+    {
+        "id": 3,
+        "title": "Expansão do etanol de milho abre janela de oportunidades para consumo no Brasil",
+        "date": "2025-11-03",
         "author": "Equipe de Análise",
-        "summary": "Nossa equipe analisa como a alta recente na cotação do dólar e do petróleo Brent afeta diretamente os custos de insumos importados, como a ureia e o potássio, impactando o planejamento da próxima safra.",
-        "link_text": "Ver dados de cotação",
-        "link_url": "#precos",
-        "image_url": "news_cotacao.jpg"
+        "summary": "O etanol de milho está crescendo no Brasil e abrindo novas oportunidades no mercado de combustíveis limpos. Especialistas discutem como aumentar o consumo interno e garantir rentabilidade aos produtores.Atualmente, seis estados — São Paulo, Minas Gerais, Goiás, Paraná, Mato Grosso e Mato Grosso do Sul — concentram 80% das vendas de etanol e mais da metade da frota nacional de veículos flex.",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/noticias/biocombustivel/410175-expansao-do-etanol-de-milho-abre-janela-de-oportunidades-para-consumo-no-brasil.html",
+        "image_url": "news_2025.11.05_n2.jpg"
     }
+
+
 ]
