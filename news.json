@@ -3,7 +3,7 @@
         "id": 1,
         "title": "China retoma compras dos EUA e impulsiona Chicago; soja brasileira segue competitiva",
         "date": "2025-11-05",
-        "author": "Noticias Agricolas",
+        "author": "Notícias Agrícolas",
         "summary": "A China retomou compras de grãos dos EUA após um novo acordo comercial, impulsionando os preços na Bolsa de Chicago. Segundo Flávio França, da Datagro, a soja brasileira segue competitiva, pois a alta nos EUA reduziu os prêmios de exportação no Brasil, tornando o produto nacional mais barato.",
         "link_text": "Leia mais em",
         "link_url": "https://www.noticiasagricolas.com.br/videos/soja/410460-china-retoma-compras-dos-eua-e-impulsiona-chicago-soja-brasileira-segue-competitiva.html",
@@ -13,7 +13,7 @@
         "id": 2,
         "title": "CRA aprova projeto que amplia uso de recursos dos fundos constitucionais no crédito fundiário",
         "date": "2025-11-03",
-        "author": "Noticias Agricolas",
+        "author": "Notícias Agrícolas",
         "summary": "O Senado aprovou um projeto que permite usar parte dos fundos regionais (FNO, FNE e FCO) para financiar o crédito fundiário, ajudando famílias rurais a comprar terras e fortalecer a agricultura familiar. A proposta amplia o número de beneficiários, incluindo pequenos agricultores e trabalhadores sem terra, e prevê assistência técnica para o bom uso dos recursos. O texto mantém o foco regional de cada fundo e agora segue para análise da Comissão de Assuntos Econômicos (CAE).",
         "link_text": "Leia mais em",
         "link_url": "https://www.noticiasagricolas.com.br/noticias/agronegocio/410182-cra-aprova-projeto-que-amplia-uso-de-recursos-dos-fundos-constitucionais-no-credito-fundiario.html",
@@ -24,11 +24,45 @@
         "id": 3,
         "title": "Expansão do etanol de milho abre janela de oportunidades para consumo no Brasil",
         "date": "2025-11-03",
-        "author": "Noticias Agricolas",
+        "author": "Notícias Agrícolas",
         "summary": "O etanol de milho está crescendo no Brasil e abrindo novas oportunidades no mercado de combustíveis limpos. Especialistas discutem como aumentar o consumo interno e garantir rentabilidade aos produtores.Atualmente, seis estados — São Paulo, Minas Gerais, Goiás, Paraná, Mato Grosso e Mato Grosso do Sul — concentram 80% das vendas de etanol e mais da metade da frota nacional de veículos flex.",
         "link_text": "Leia mais em",
         "link_url": "https://www.noticiasagricolas.com.br/noticias/biocombustivel/410175-expansao-do-etanol-de-milho-abre-janela-de-oportunidades-para-consumo-no-brasil.html",
         "image_url": "news_2025.11.05_n2.jpg"
+    },
+
+
+    {
+        "id": 4,
+        "title": "ALERTAS DO INMET: TEMPESTADES DE NORTE A SUL PREOCUPA PRODUTOR",
+        "date": "2025-11-10",
+        "author": "Notícias Agrícolas",
+        "summary": "O INMET emitiu alertas de tempestade abrangendo quase todo o país entre 05 e 08 de novembro. Há risco de chuvas fortes (até 100 mm/dia no Sul), ventos de até 100 km/h e granizo, começando pelo Sudeste e Centro-Oeste e avançando com força para o Sul a partir de quinta-feira. O mau tempo pode causar danos em plantações, cortes de energia e problemas logísticos.",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/noticias/clima/410457-alertas-do-inmet-para-tempestade-vao-desde-o-sul-ate-as-regioes-norte-e-nordeste.html",
+        "image_url": "news_2025.11.10_n1.jpg"
+    },
+
+    {
+        "id": 5,
+        "title": "PLANTIO DA SOJA ATINGE 57,68% NO BRASIL, MAS SEGUE ATRASADO EM RELAÇÃO A 2024",
+        "date": "2025-11-10",
+        "author": "Notícias Agrícolas",
+        "summary": "A semeadura da safra 2025/26 de soja alcançou 57,68% da área total prevista no Brasil, segundo a Pátria Agronegócios. Apesar do avanço impulsionado por chuvas recentes em GO, MG e BA, o ritmo atual está significativamente atrás dos 68,36% registrados no mesmo período de 2024 e levemente abaixo da média dos últimos cinco anos (58,90%). A irregularidade das chuvas no Nordeste, Tocantins e partes do Centro-Oeste continua sendo o principal entrave para um progresso mais rápido",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/noticias/soja/410612-plantio-da-soja-chega-a-57-68-da-area-no-brasil-informa-patria-agronegocios.html",
+        "image_url": "news_2025.11.10_n2.jpg"
+    },
+    
+    {
+        "id": 6,
+        "title": "OUTUBRO REGISTRA RECORDE HISTÓRICO NAS EXPORTAÇÕES DE CARNE BOVINA",
+        "date": "2025-11-10",
+        "author": "Notícias Agrícolas",
+        "summary": "As exportações brasileiras de carne bovina atingiram 357 mil toneladas em outubro de 2025, o maior volume mensal da série histórica iniciada em 1997, com um crescimento de 18,7% em relação ao mesmo mês de 2024. O faturamento alcançou US$ 1,90 bilhão, um aumento de 39,1% na comparação anual. A China continua sendo o principal destino, responsável por 53% do volume e 55% da receita do mês, totalizando US$ 1,046 bilhão. No acumulado do ano, o Brasil já embarcou 2,79 milhões de toneladas (US$ 14,31 bilhões) para 162 países.",
+        "link_text": "Leia mais em",
+        "link_url": "https://www.noticiasagricolas.com.br/noticias/boi/410558-outubro-registra-o-maior-volume-da-serie-historica-nas-exportacoes-de-carne-bovina-brasileira.html",
+        "image_url": "news_2025.11.10_n3.jpg"
     }
 
 
